@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <div class="admin">
+        <div class="admin-block">
+            <button class="admin-quit">Back</button>
+            <div class="admin-block-item">
+                <p class="admin-title">User List</p>
+                <ol class="admin-list"></ol>
+            </div>
+            <div class="admin-block-item">
+                <p class="admin-title">Add new user</p>
+                <input type="text" class="admin-inp" placeholder="Login">
+                <input type="text" class="admin-inp" placeholder="Password">
+                <div class="admin-check">
+                    <label>
+                        <input type="checkbox">
+                        <span>Show Password</span>
+                    </label>
+                    <label>
+                        <input type="checkbox">
+                        <span>Make admin</span>
+                    </label>
+                    <label>
+                        <input type="checkbox">
+                        <span>Generate</span>
+                    </label>
+                </div>
+                <button class="admin-add">Add user</button>
+            </div>
+            <div class="admin-settings">
+                <div class="admin-settings-inner">
+                   <p class="admin__title">Settings</p>
+                   <input type="text" class="admin-settings__text" placeholder="Login">
+                   <input type="password" class="admin-settings__password" placeholder="Password">
+                   <label><input type="checkbox">Show Password</label>
+                   <label><input type="checkbox">Make admin</label>
+                   <label><input type="checkbox">Generate</label>
+    
+                   <div class="admin-settings-permission">
+                      <div class="admin-settings-active">
+                         <p class="admin-settings__title">Active</p>
+                         <ul class="admin-settings-list"></ul>
+                      </div>
+                      <div class="admin-settings-available">
+                         <p class="admin-settings__title">Available</p>
+                         <ul class="admin-settings-list"></ul>
+                      </div>
+                   </div>
+    
+                   <button class="admin-settings__exit">Exit</button>
+                   <button class="admin-settings__submit">Save</button>
+                </div>
+             </div>
+        </div>
+    </div>
+    <script src="js/admin.js"></script>
+</body>
+</html>

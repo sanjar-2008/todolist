@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/notes.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="note">
+            <div class="note-head">
+                <p class="note-head__title">Tasks</p>
+                <div class="note-data">
+                    <input type="date" class="note-data__dates" id="date">
+                    <input type="text" class="note-data__text" id="text" placeholder="Add note...">
+                    <input type="checkbox" class="note-data__important" id="important">
+                    <label for="important" class="note-data__lab">
+                    </label>
+                    <button id="addButton" class="note-data__add">Add note</button>
+                </div>
+                <div class="note-admin">
+                    <img src="images/avatar.png">
+                    <p class="note-admin__title">Admin</p>
+                    <div class="note-admin__links" id="userPages">
+                        <p id="logout">Logout</p>
+                        <p id="profile">My profile</p>
+                    </div>
+                </div>
+            </div>
+            <div class="note-check">
+                <input type="radio" name="tab" id="all" checked>
+                <input type="radio" name="tab" id="process">
+                <div class="note-check__element">
+                    <label for="all" class="note-check__link">
+                        <span class="far fa-list-alt"></span>
+                        <span>All Tasks</span>
+                    </label>
+                    <label for="process" class="note-check__link">
+                        <span class="fas fa-stream"></span>
+                        <span>Category</span>
+                    </label>
+                </div>
+                <div class="note-check__block">
+                    <div class="note-check__item">
+                        <div class="note-check__search">
+                            <input type="text" name="search" id="searchText" class="note-check__search-text"
+                                placeholder="Search...">
+                        </div>
+                        <div class="note-check__list">
+                            
+                        </div>
+                        <!-- edit -->
+                        <div class="edit">
+                            <div class="edit-block">
+                                <input type="text" class="edit-block_text">
+                                <input type="date" class="edit-block_date">
+                                <button class="edit-block_edit">Edit</button>
+                            </div>
+                        </div>
+                        <!-- /edit -->
+                    </div>
+                    <div class="note-check__item">
+                        <div class="note-check__inner">
+
+                            <div class="note-check__category" id="process_second">
+                                <p class="note-check__category-title">In process</p>
+
+                            </div>
+
+                            <div class="note-check__category" id="important_second">
+                                <p class="note-check__category-title">Important</p>
+
+                            </div>
+
+                            <div class="note-check__category" id="done_second">
+                                <p class="note-check__category-title">Done</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="module" src="js/index.js"></script>
+</body>
+
+</html>
