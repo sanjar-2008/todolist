@@ -1,21 +1,18 @@
-export let users = [
-    {
-        login: 'admin',
-        password: 'admin',
-    },
-    {
-        login: 'sanjar',
-        password: 'sanjar',
+import Users from './permision.js'
+import Utils from './utils.js'
+let add = document.querySelector('.admin-add')
+let login = document.querySelector('#admin-login')
+let password = document.querySelector('.admin-password')
+let makeAdmin = document.querySelector('#makeAdmin')
+add.addEventListener('click', () => {
+    new Users().addUser(
+        {
+        id: Math.floor(Math.random() * 1000000),
+        login: login.value,
+        makeAdmin: makeAdmin.checked ? true : false,
     }
-]
+    )
 
-export function addAdmin(name, password){
-    users.push({login:name, password:password})
-}
+})
 
-export default class Users {
-    saveAdmin() {
-        let admins = JSON.parse(localStorage.getItem('users') || '[]');
-        return admins
-    }
-}
+new Users().addUser(getData('users'));

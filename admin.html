@@ -17,15 +17,15 @@
             </div>
             <div class="admin-block-item">
                 <p class="admin-title">Add new user</p>
-                <input type="text" class="admin-inp" placeholder="Login">
-                <input type="text" class="admin-inp" placeholder="Password">
+                <input type="text" class="admin-inp" id="admin-login" placeholder="Login">
+                <input type="text" class="admin-inp" id="admin-password" placeholder="Password">
                 <div class="admin-check">
                     <label>
                         <input type="checkbox">
                         <span>Show Password</span>
                     </label>
                     <label>
-                        <input type="checkbox">
+                        <input type="checkbox" id="makeAdmin">
                         <span>Make admin</span>
                     </label>
                     <label>
@@ -61,6 +61,6 @@
              </div>
         </div>
     </div>
-    <script src="js/admin.js"></script>
+    <script type="module" src="js/admin.js"></script>
 </body>
 </html>

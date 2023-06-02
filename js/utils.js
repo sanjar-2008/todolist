@@ -3,4 +3,10 @@ export default class Utils {
         let todos = JSON.parse(localStorage.getItem('tasks') || '[]');
         return todos
     }
+    userFromLocalStorage() {
+        let users = JSON.parse(localStorage.getItem('users') || '[]');
+        return users;
+
+
+    }
 }

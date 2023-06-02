@@ -45,40 +45,7 @@ export default class Tasks {
             }
         })
     }
-    // addProcess(tasks) {
-    //     tasks.forEach((item) => {
-    //         const processInner = item.important && item.status
-    //             ? document.querySelector('#done_second')
-    //             : !item.important && item.status
-    //                 ? document.querySelector('#done_second')
-    //                 : item.important && !item.status
-    //                     ? document.querySelector('#important_second')
-    //                     : !item.important && !item.status
-    //                         ? document.querySelector('#process_second')
-    //                         : null;
 
-    //         const processList = document.createElement('ul');
-    //         processList.className = 'process-list';
-
-    //         processInner.appendChild(processList);
-
-    //         const listItem = document.createElement('li');
-    //         listItem.className = 'list-item'
-    //         listItem.id = item.id;
-    //         listItem.draggable = true;
-    //         listItem.innerHTML = `
-    //         <li class = "task" id="${item.id}">
-    //         <span id="color"></span>
-    //         <p id="text" class="textP">${item.text}</p>
-    //         <span class="data">${item.date}</span>
-    //         <i id="delete">Delete</i>
-    //         <i id="edit">Edit</i>
-    //     </li>
-    //   `;
-
-    //         processList.appendChild(listItem);
-    //     })
-    // }
     addTasks(data) {
         let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
         tasks.push(data);
@@ -105,6 +72,7 @@ export default class Tasks {
         localStorage.setItem("tasks", JSON.stringify(this.tasks));
         this.renderTasks(this.tasks);
     }
+
     updateStatusCotegory(id, status){
         this.tasks.map((item)=>{
             if(item.id == id){
@@ -124,6 +92,7 @@ export default class Tasks {
         localStorage.setItem("tasks", JSON.stringify(this.tasks));
         this.renderTasks(this.tasks);
     }
+
     searchTask(text) {
         let filteredTasks = getData("tasks").filter((item) => {
             return item.text.toLowerCase().startsWith(text);
@@ -135,6 +104,7 @@ export default class Tasks {
         let task = this.tasks.filter((task) => task.id == id);
         return task;
     }
+
     saveTask(id, text, date) {
         this.tasks.map((task) => {
             if (task.id == id) {
@@ -146,6 +116,7 @@ export default class Tasks {
         localStorage.setItem("tasks", JSON.stringify(this.tasks));
         this.renderTasks(this.tasks);
     }
+        
     DragAndDrop() {
         let noteProcess = document.querySelector('#process_second')
         let noteImportant = document.querySelector('#important_second')
