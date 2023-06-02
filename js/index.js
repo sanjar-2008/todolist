@@ -60,5 +60,4 @@ editBtn.addEventListener('click', () => {
 new Tasks().renderTasks(getData('tasks'));
 
 
-new Tasks().addProcess()
-new Tasks().DragandDrop()
+new Tasks().DragAndDrop()

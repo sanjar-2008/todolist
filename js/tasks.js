@@ -105,7 +105,25 @@ export default class Tasks {
         localStorage.setItem("tasks", JSON.stringify(this.tasks));
         this.renderTasks(this.tasks);
     }
-
+    updateStatusCotegory(id, status){
+        this.tasks.map((item)=>{
+            if(item.id == id){
+                if(status == 'process_second'){
+                    item.status = false;
+                    item.important = false
+                }
+                else if(status == 'important_second'){
+                    item.status = false
+                    item.important = true
+                }
+                else if(status == 'done_second'){
+                    item.status = true
+                }
+            }
+        })
+        localStorage.setItem("tasks", JSON.stringify(this.tasks));
+        this.renderTasks(this.tasks);
+    }
     searchTask(text) {
         let filteredTasks = getData("tasks").filter((item) => {
             return item.text.toLowerCase().startsWith(text);
@@ -128,8 +146,7 @@ export default class Tasks {
         localStorage.setItem("tasks", JSON.stringify(this.tasks));
         this.renderTasks(this.tasks);
     }
-    addProcess() {
-        let noteInner = document.querySelector('.note-check__inner')
+    DragAndDrop() {
         let noteProcess = document.querySelector('#process_second')
         let noteImportant = document.querySelector('#important_second')
         let noteDone = document.querySelector('#done_second')
@@ -176,48 +193,30 @@ export default class Tasks {
                             `)
             }
         })
+        let noteInner = document.querySelectorAll('.note-check__inner')
+        noteInner.forEach((item)=>{
+            
+            item.addEventListener('dragstart', (e) => {
+                e.target.classList.add('hide')
+
+            })
+            item.addEventListener('dragover', (e)=>{
+                e.preventDefault()
+                e.target.classList.add('hovered')
+            })
+            item.addEventListener('dragleave', (e)=>{
+                e.preventDefault()
+                e.target.classList.remove('hovered')
+            })
+            item.addEventListener('drop', (e)=>{
+                e.preventDefault()
+                let dragged = document.querySelector('.hide')
+                e.target.appendChild(dragged)
+                dragged.classList.remove('hide')
+                this.updateStatusCotegory(dragged.id, e.target.id)
+                
+            })
+        })
+
     }
-    DragandDrop() {
-        let card = document.querySelector('.noteStatus');
-        let dargs = document.querySelectorAll('.note-check__category');
-        let dragStart = function() {
-            setTimeout(() => {
-                this.classList.add('hide');
-            }, 0);
-        };
-    
-        let dragEnd = function() {
-            this.classList.remove('hide');
-        };
-    
-        let dragOver = function(event) {
-            event.preventDefault();
-        };
-    
-        let dragEnter = function(event) {
-            event.preventDefault();
-            this.classList.add('hovered');
-            console.log(event);
-        };
-    
-        let dragLeave = function() {
-            this.classList.remove('hovered');
-        };
-    
-        let dragDrop = function() {
-            this.append(card);
-            this.classList.remove('hovered');
-        };
-    
-        dargs.forEach((item) => {
-            item.addEventListener('dragover', dragOver);
-            item.addEventListener('dragenter', dragEnter);
-            item.addEventListener('dragleave', dragLeave);
-            item.addEventListener('drop', dragDrop);
-        });
-        card.addEventListener('dragstart', dragStart);
-        card.addEventListener('dragend', dragEnd);
-    }
-    
-    
 }  
