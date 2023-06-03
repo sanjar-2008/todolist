@@ -112,7 +112,7 @@ export default class Tasks {
                 task.date = date;
             }
         });
-
+        
         localStorage.setItem("tasks", JSON.stringify(this.tasks));
         this.renderTasks(this.tasks);
     }

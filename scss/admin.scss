@@ -71,6 +71,35 @@
         color: white;
     }
 }
+
+.admin-list li{
+    list-style: none;
+    height: 30px;
+    width: 100%;
+    display: flex;
+    background: white;
+    justify-content: space-between;
+    box-shadow: 1px 2px 8px 13px rgba(34, 60, 80, 0.25);
+    margin: 10px 0;
+
+    #change{
+        background-color: blue;
+        border: none;
+        height: 20px;
+        margin-top: 5px;
+        color: #fff;
+        border-radius: 15px;
+    }
+    #delete{
+        background-color: red;
+        border: none;
+        height: 20px;
+        margin-top: 5px;
+        color: #fff;
+        border-radius: 15px;
+    }
+}
+
 .admin-settings {
     display: none;
     width: 500px;

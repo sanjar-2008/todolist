@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/admin.css">
 </head>
 <body>
-    <div class="admin">
+    <div class="admin" id="admin">
         <div class="admin-block">
             <button class="admin-quit">Back</button>
             <div class="admin-block-item">
@@ -29,7 +29,7 @@
                         <span>Make admin</span>
                     </label>
                     <label>
-                        <input type="checkbox">
+                        <input type="checkbox" id="generate-password">
                         <span>Generate</span>
                     </label>
                 </div>
@@ -40,7 +40,7 @@
                    <p class="admin__title">Settings</p>
                    <input type="text" class="admin-settings__text" placeholder="Login">
                    <input type="password" class="admin-settings__password" placeholder="Password">
-                   <label><input type="checkbox">Show Password</label>
+                   <label><input id="show-password_second" type="checkbox">Show Password</label>
                    <label><input type="checkbox">Make admin</label>
                    <label><input type="checkbox">Generate</label>
     
