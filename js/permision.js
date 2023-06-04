@@ -39,6 +39,7 @@ export default class Users {
   }
 
   showPasswordSymbols(input) {
+    console.log(input);
     if (input.type === 'password') {
       input.type = 'text';
     } else {
@@ -60,27 +61,46 @@ export default class Users {
     localStorage.setItem("users", JSON.stringify(this.users));
     this.renderUser(this.users);
   }
-  changeUser(id, login, password,admin) {
+  changeUser(id, input, admin, login, password) {
     this.users.forEach((item) => {
       if (item.id == id) {
         password = item.password
         login = item.login
-        if(item.admin == true){
-          item.admin =true 
+        if (admin.checked == true) {
+          let makeAdminSecond = document.querySelector('#make-admin_second')
+          makeAdminSecond.checked = true
         }
       }
     });
-  
+    if (input.type == 'password') {
+      input.type = 'text';
+    } else {
+      input.type = 'password';
+    }
+
     let loginEdit = document.querySelector('.admin-settings__text');
     let passwordEdit = document.querySelector('.admin-settings__password');
     loginEdit.value = login;
     passwordEdit.value = password;
-
     localStorage.setItem("users", JSON.stringify(this.users));
     this.renderUser(this.users);
+  }
+
+  saveChanges(id) {
+    let loginEdit = document.querySelector('.admin-settings__text');
+    let passwordEdit = document.querySelector('.admin-settings__password');
+    let login = loginEdit.value;
+    let password = passwordEdit.value;
+  
+    let userToUpdate = this.users.find((user) => user.id === id);
+    if (userToUpdate) {
+      userToUpdate.login = login;
+      userToUpdate.password = password;
+      localStorage.setItem("users", JSON.stringify(this.users));
+      this.renderUser(this.users);
+    }
   }
   
   
   
-
 }

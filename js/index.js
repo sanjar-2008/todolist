@@ -34,7 +34,7 @@ taskList.addEventListener("click", (event) => {
         let id = event.target.closest(".task").id;
         let task = new Tasks().editTask(id);
         localStorage.setItem("currentTask", id);
-
+        
         editText.value = task[0].text;
         editDate.value = task[0].date;
     }

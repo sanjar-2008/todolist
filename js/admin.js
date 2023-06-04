@@ -6,7 +6,6 @@ let add = document.querySelector('.admin-add')
 let login = document.querySelector('#admin-login')
 let password = document.querySelector('#admin-password')
 let makeAdmin = document.querySelector('#makeAdmin')
-let inputs = document.querySelector('.admin-check')
 add.addEventListener('click', () => {
     new Users().addUser(
 
@@ -30,12 +29,9 @@ adminList.addEventListener('click', (event) => {
         let changeSetings = document.querySelector('.admin-settings')
         changeSetings.style.display = 'block'
         let id = event.target.closest("li").id;
-        let login = event.target.closest('#admin-login')
-        let password = event.target.closest('#admin-password')
-        new Users().changeUser(id,makeAdmin)
-    let input = document.querySelector('#admin-password')
+        let input = document.querySelector('.admin-settings__password')
+        new Users().changeUser(id,input,makeAdmin)
 
-        new Users().showPasswordSymbols(input)
     }
 })
 
@@ -47,5 +43,13 @@ document.querySelector('#show-password').addEventListener('click', (event) => {
 document.querySelector('#generate-password').addEventListener('click', () => {
     let input = document.querySelector('#admin-password')
     new Users().generatePassword(input)
+})
+
+document.querySelector('.admin-settings__submit').addEventListener('click', ()=>{
+    let changeSetings = document.querySelector('.admin-settings')
+
+    changeSetings.style.display = 'none'
+    let id = document.querySelector('.users').id;
+    new Users().saveChanges(id)
 })
 new Users().renderUser(getData('users'));
