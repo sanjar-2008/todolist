@@ -7,9 +7,11 @@ let password = document.querySelector('#admin-password')
 let makeAdmin = document.querySelector('#makeAdmin')
 let adminSetText = document.querySelector('.admin-settings__text')
 let adminSetPass = document.querySelector('.admin-settings__password')
+
+
 add.addEventListener('click', () => {
     new Users().addUser(
-
+        
         {
             id: Math.floor(Math.random() * 1000000),
             login: login.value,
@@ -46,7 +48,7 @@ adminList.addEventListener('click', (event) => {
         });
         adminSetText.value = user[0].login;
         adminSetPass.value = user[0].password;
-
+        
     }
 })
 

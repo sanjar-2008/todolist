@@ -1,7 +1,7 @@
 import { getData } from "./utils.js";
 
 let adminList = document.querySelector('.admin-list')
-
+let makeAdmin = document.querySelector('#makeAdmin')
 export default class Users {
   constructor() {
     this.users = getData("users")
@@ -84,95 +84,151 @@ export default class Users {
   }
 
   DragAndDrop() {
-    let noteInner = document.querySelector('.admin-settings-permission')
     let userActive = document.querySelector('.admin-settings-active')
     let userAvailable = document.querySelector('.admin-settings-available')
 
     this.users.map((item) => {
-      if (item.canAdd && item.canDelete && item.canEdit) {
-        userActive.insertAdjacentHTML('beforeend', `
-          <div class='double-two-skills'>
-            <div class='skill' draggable='true'>Can add</div>
-            <div class='skill' draggable='true'>Can delete</div>
-            <div class='skill' draggable='true'>Can edit</div>
-          </div>`)
-      } else
-        if (!item.canAdd && !item.canDelete && !item.canEdit) {
-          -userAvailable.insertAdjacentHTML('beforeend', `
-          <div class='double-two-skills'>
-            <div class='skill' draggable='true'>Can add</div>
-            <div class='skill' draggable='true'>Can delete</div>
-            <div class='skill' draggable='true'>Can edit</div>
-          </div>`)
+      if(item.makeAdmin === true){
+        
+        if (item.canAdd && item.canDelete && item.canEdit) {
+          userActive.insertAdjacentHTML('beforeend', `
+              <div class='skill' draggable='true'>Can add</div>
+              <div class='skill' draggable='true'>Can delete</div>
+              <div class='skill' draggable='true'>Can edit</div>
+            `)
+  
         } else
-          if (!item.canAdd && item.canDelete && item.canEdit) {
-            userActive.insertAdjacentHTML('beforeend', `
-          <div class='double-two-skills'>        
-            <div class='skill' draggable='true'>Can delete</div>
-            <div class='skill' draggable='true'>Can edit</div>
-          </div>`)
+          if (!item.canAdd && !item.canDelete && !item.canEdit) {
             userAvailable.insertAdjacentHTML('beforeend', `
-          <div class='double-two-skills'>
-            <div class='skill' draggable='true'>Can add</div>
-          </div>`)
+              <div class='skill' draggable='true'>Can add</div>
+              <div class='skill' draggable='true'>Can delete</div>
+              <div class='skill' draggable='true'>Can edit</div>
+            `)
+  
           } else
-            if (item.canAdd && !item.canDelete && item.canEdit) {
+            if (!item.canAdd && item.canDelete && item.canEdit) {
               userActive.insertAdjacentHTML('beforeend', `
-            <div class='double-two-skills'>
-              <div class='skill' draggable='true'>Can add</div>
+              <div class='skill' draggable='true'>Can delete</div>
               <div class='skill' draggable='true'>Can edit</div>
-            </div>`)
+           `)
               userAvailable.insertAdjacentHTML('beforeend', `
-            <div class='double-two-skills'>
-              <div class='skill' draggable='true'>Can delete</div>
-            </div>`)
+            
+              <div class='skill' draggable='true'>Can add</div>
+           `)
+  
             } else
-              if (item.canAdd && item.canDelete && !item.canEdit) {
+              if (item.canAdd && !item.canDelete && item.canEdit) {
                 userActive.insertAdjacentHTML('beforeend', `
-            <div class='double-two-skills'>
-              <div class='skill' draggable='true'>Can add</div>
-              <div class='skill' draggable='true'>Can delete</div>
-            </div>`)
+                <div class='skill' draggable='true'>Can add</div>
+                <div class='skill' draggable='true'>Can edit</div>
+              `)
                 userAvailable.insertAdjacentHTML('beforeend', `
-            <div class='double-two-skills'>
-              <div class='skill' draggable='true'>Can edit</div>
-            </div>`)
+                <div class='skill' draggable='true'>Can delete</div>
+             `)
+  
               } else
-                if (!item.canAdd && !item.canDelete && item.canEdit) {
+                if (item.canAdd && item.canDelete && !item.canEdit) {
                   userActive.insertAdjacentHTML('beforeend', `
-                <div class='double-two-skills'>
-                  <div class='skill' draggable='true'>Can edit</div>
-                </div>`)
+                <div class='skill' draggable='true'>Can add</div>
+                <div class='skill' draggable='true'>Can delete</div>
+              `)
                   userAvailable.insertAdjacentHTML('beforeend', `
-                <div class='double-two-skills'>
-                  <div class='skill' draggable='true'>Can add</div>
-                  <div class='skill' draggable='true'>Can delete</div>
-                </div>`)
+                <div class='skill' draggable='true'>Can edit</div>
+              `)
+  
                 } else
-                  if (item.canAdd && !item.canDelete && !item.canEdit) {
+                  if (!item.canAdd && !item.canDelete && item.canEdit) {
                     userActive.insertAdjacentHTML('beforeend', `
-            <div class='double-two-skills'>
-              <div class='skill' draggable='true'>Can add</div>
-            </div>`)
+                    <div class='skill' draggable='true'>Can edit</div>
+                  `)
                     userAvailable.insertAdjacentHTML('beforeend', `
-            <div class='double-two-skills'>
-              <div class='skill' draggable='true'>Can edit</div>
-              <div class='skill' draggable='true'>Can delete</div>
-            </div>`)
+                    <div class='skill' draggable='true'>Can add</div>
+                    <div class='skill' draggable='true'>Can delete</div>
+                  `)
+  
                   } else
-                    if (!item.canAdd && item.canDelete && !item.canEdit) {
+                    if (item.canAdd && !item.canDelete && !item.canEdit) {
                       userActive.insertAdjacentHTML('beforeend', `
-            <div class='double-two-skills'>
-              <div class='skill' draggable='true'>Can delete</div>
-            </div>`)
+                <div class='skill' draggable='true'>Can add</div>
+              `)
                       userAvailable.insertAdjacentHTML('beforeend', `
-            <div class='double-two-skills'>
-              <div class='skill' draggable='true'>Can add</div>
-              <div class='skill' draggable='true'>Can edit</div>
-            </div>`)
-                    }
+                <div class='skill' draggable='true'>Can edit</div>
+                <div class='skill' draggable='true'>Can delete</div>
+              `)
+  
+                    } else
+                      if (!item.canAdd && item.canDelete && !item.canEdit) {
+                        userActive.insertAdjacentHTML('beforeend', `
+                <div class='skill' draggable='true'>Can delete</div>
+              `)
+                        userAvailable.insertAdjacentHTML('beforeend', `
+                <div class='skill' draggable='true'>Can add</div>
+                <div class='skill' draggable='true'>Can edit</div>
+            `)
+                      }
+      }
+
 
     })
+    let noteInner = document.querySelectorAll('.admin-settings-permission')
+
+    noteInner.forEach((item) => {
+      item.addEventListener('dragstart', (e) => {
+        e.target.classList.add('hide')
+
+      })
+      item.addEventListener('dragover', (e) => {
+        e.preventDefault()
+        e.target.classList.add('hovered')
+      })
+      item.addEventListener('dragleave', (e) => {
+        e.preventDefault()
+        e.target.classList.remove('hovered')
+      })
+      item.addEventListener('drop', (e) => {
+        e.preventDefault()
+        let dragged = document.querySelector('.hide')
+        let hovered = document.querySelector('.hovered')
+        e.target.appendChild(dragged)
+        dragged.classList.remove('hide')
+        this.users.map((item) => {
+          if (e.target == userActive) {
+            if (dragged.textContent == 'canAdd') {
+              item.canAdd = true
+            }
+            localStorage.setItem('users', JSON.stringify(this.users))
+          }
+          else if (dragged.textContent === 'CanEdit') {
+            item.canEdit = true;
+           
+            localStorage.setItem('users', JSON.stringify(this.users))
+          }
+          else if (dragged.textContent === 'CanDelete') {
+            item.canDelete = true;
+            
+            localStorage.setItem('users', JSON.stringify(this.users))
+          }
+          else if (e.target.id === userAvailable) {
+            if (dragged.textContent === 'CanAdd') {
+              item.canAdd = false;
+              localStorage.setItem('users', JSON.stringify(this.users))
+            }
+            else if (dragged.textContent === 'CanEdit') {
+              item.canEdit = false;
+              localStorage.setItem('users', JSON.stringify(this.users))
+            }
+            else if (dragged.textContent === 'CanDelete') {
+              item.canDelete = false;
+              localStorage.setItem('users', JSON.stringify(this.users))
+            }
+          }
+        })
+
+      })
+    })
+    localStorage.setItem("users", JSON.stringify(this.users));
+    this.renderUser(this.users);
+
   }
 
 }
