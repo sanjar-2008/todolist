@@ -88,7 +88,7 @@ export default class Users {
     let userAvailable = document.querySelector('.admin-settings-available')
 
     this.users.map((item) => {
-      if(item.makeAdmin === true){
+      if(item.isAdmin === true){
         
         if (item.canAdd && item.canDelete && item.canEdit) {
           userActive.insertAdjacentHTML('beforeend', `
@@ -196,18 +196,18 @@ export default class Users {
             if (dragged.textContent == 'canAdd') {
               item.canAdd = true
             }
-            localStorage.setItem('users', JSON.stringify(this.users))
+              else if (dragged.textContent === 'CanEdit') {
+              item.canEdit = true;
+             
+              localStorage.setItem('users', JSON.stringify(this.users))
+            }
+            else if (dragged.textContent === 'CanDelete') {
+              item.canDelete = true;
+              
+              localStorage.setItem('users', JSON.stringify(this.users))
+            }
           }
-          else if (dragged.textContent === 'CanEdit') {
-            item.canEdit = true;
-           
-            localStorage.setItem('users', JSON.stringify(this.users))
-          }
-          else if (dragged.textContent === 'CanDelete') {
-            item.canDelete = true;
-            
-            localStorage.setItem('users', JSON.stringify(this.users))
-          }
+          
           else if (e.target.id === userAvailable) {
             if (dragged.textContent === 'CanAdd') {
               item.canAdd = false;

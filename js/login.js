@@ -1,13 +1,13 @@
 import { admin } from "./loginOf.js";
-console.log(admin);
 let login = document.querySelector('#login')
 let password = document.querySelector('#password')
 let submit = document.querySelector('#submit')
 
 let i = 0;
+
 submit.addEventListener('click', () => {
-    if (login.value === "" || logPass.value === "") {
-        alert(`You did not write a password or email! Please check.`);
+    if (login.value === "" || password.value === "") {
+        alert(`Логин или пороль не зополнен, пожалуйста заполните их!`);
     } else if (login.value !== "" || password.value !== "") {
         let found = false;
         for (let j = 0; j < admin.length; j++) {
@@ -21,15 +21,14 @@ submit.addEventListener('click', () => {
                     canEdit: admin[j].canEdit,
                     isAdmin:admin[j].isAdmin
                 }];
-                new Current().saveUserToLocalStorage(user);
-                alert(`Welcome, ${admin[j].login}!`);
-                window.location.href = "../20.ToDo List/pages/index.html";
+                window.location.href = "../pages/notes.html";
                 found = true;
+                localStorage.setItem("admin", JSON.stringify(user));
                 break;
             }
         }
         if (!found) {
-            alert("Wrong login or password");
+            alert("Неправильный логин или пароль!");
         }
     }
     i++;

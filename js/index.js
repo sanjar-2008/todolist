@@ -1,7 +1,5 @@
 import Tasks from "./tasks.js";
-import { getData } from './utils.js'
-
-
+import { getData, clearData } from './utils.js'
 let date = document.querySelector("#date");
 let text = document.querySelector("#text");
 let important = document.querySelector("#important");
@@ -47,11 +45,21 @@ taskList.addEventListener("click", (event) => {
 search.addEventListener('input', () => {
     new Tasks().searchTask(search.value.toLowerCase());
 })
-
-
+document.querySelector('#logout').addEventListener('click', ()=>{
+    window.location.href = '../index.html'
+    localStorage.removeItem('admin');
+})
+let isAdmin = getData('admin')
+let perm = document.querySelector('#permision')
+isAdmin.map((item)=>{
+    if(item.isAdmin == false){
+        perm.style.display = 'none'
+    }
+    else{
+        perm.style.display = 'block'
+    }
+})
 let editBtn = document.querySelector('.edit-block_edit');
-
-
 editBtn.addEventListener('click', () => {
     edit.style.display = 'none';
     let id = document.querySelector('.task').id;

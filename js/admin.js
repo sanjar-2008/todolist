@@ -16,7 +16,7 @@ add.addEventListener('click', () => {
             id: Math.floor(Math.random() * 1000000),
             login: login.value,
             password: password.value,
-            makeAdmin: makeAdmin.checked ? true : false,
+            isAdmin: makeAdmin.checked ? true : false,
             canEdit: false,
             canDelete: false,
             canAdd: false

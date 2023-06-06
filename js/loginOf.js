@@ -12,6 +12,15 @@ if(admin.length === 0){
             canDelete: true,
             canEdit: true,
             isAdmin: true
+        },
+        {
+            id: 789451,
+            login: 'sanjar',
+            password: 'sanjar',
+            canAdd: false,
+            canDelete: false,
+            canEdit: false,
+            isAdmin: false
         }
     ]
     new Admin().saveAdminsToLocalStorage(admin)

@@ -9,6 +9,7 @@ let date = document.querySelector("#date");
 export default class Tasks {
     constructor() {
         this.tasks = getData("tasks");
+        this.admin = getData('admin')
     }
     renderTasks(data) {
         taskList.innerHTML = "";
