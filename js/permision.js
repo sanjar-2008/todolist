@@ -89,86 +89,82 @@ export default class Users {
     let userAvailable = document.querySelector('.admin-settings-available')
 
     this.users.map((item) => {
-      if(item.id == id){
-        if (item.canAdd && item.canDelete && item.canEdit) {
-          userActive.insertAdjacentHTML('beforeend', `
+      if (item.canAdd && item.canDelete && item.canEdit) {
+        userActive.insertAdjacentHTML('beforeend', `
               <div class='skill' draggable='true'>Can add</div>
               <div class='skill' draggable='true'>Can delete</div>
               <div class='skill' draggable='true'>Can edit</div>
             `)
-  
+
+      } else
+        if (!item.canAdd && !item.canDelete && !item.canEdit) {
+          userAvailable.insertAdjacentHTML('beforeend', `
+              <div class='skill' draggable='true'>Can add</div>
+              <div class='skill' draggable='true'>Can delete</div>
+              <div class='skill' draggable='true'>Can edit</div>
+            `)
+
         } else
-          if (!item.canAdd && !item.canDelete && !item.canEdit) {
-            userAvailable.insertAdjacentHTML('beforeend', `
-              <div class='skill' draggable='true'>Can add</div>
-              <div class='skill' draggable='true'>Can delete</div>
-              <div class='skill' draggable='true'>Can edit</div>
-            `)
-  
-          } else
-            if (!item.canAdd && item.canDelete && item.canEdit) {
-              userActive.insertAdjacentHTML('beforeend', `
+          if (!item.canAdd && item.canDelete && item.canEdit) {
+            userActive.insertAdjacentHTML('beforeend', `
               <div class='skill' draggable='true'>Can delete</div>
               <div class='skill' draggable='true'>Can edit</div>
            `)
-              userAvailable.insertAdjacentHTML('beforeend', `
+            userAvailable.insertAdjacentHTML('beforeend', `
             
               <div class='skill' draggable='true'>Can add</div>
            `)
-  
-            } else
-              if (item.canAdd && !item.canDelete && item.canEdit) {
-                userActive.insertAdjacentHTML('beforeend', `
+
+          } else
+            if (item.canAdd && !item.canDelete && item.canEdit) {
+              userActive.insertAdjacentHTML('beforeend', `
                 <div class='skill' draggable='true'>Can add</div>
                 <div class='skill' draggable='true'>Can edit</div>
               `)
-                userAvailable.insertAdjacentHTML('beforeend', `
+              userAvailable.insertAdjacentHTML('beforeend', `
                 <div class='skill' draggable='true'>Can delete</div>
              `)
-  
-              } else
-                if (item.canAdd && item.canDelete && !item.canEdit) {
-                  userActive.insertAdjacentHTML('beforeend', `
+
+            } else
+              if (item.canAdd && item.canDelete && !item.canEdit) {
+                userActive.insertAdjacentHTML('beforeend', `
                 <div class='skill' draggable='true'>Can add</div>
                 <div class='skill' draggable='true'>Can delete</div>
               `)
-                  userAvailable.insertAdjacentHTML('beforeend', `
+                userAvailable.insertAdjacentHTML('beforeend', `
                 <div class='skill' draggable='true'>Can edit</div>
               `)
-  
-                } else
-                  if (!item.canAdd && !item.canDelete && item.canEdit) {
-                    userActive.insertAdjacentHTML('beforeend', `
+
+              } else
+                if (!item.canAdd && !item.canDelete && item.canEdit) {
+                  userActive.insertAdjacentHTML('beforeend', `
                     <div class='skill' draggable='true'>Can edit</div>
                   `)
-                    userAvailable.insertAdjacentHTML('beforeend', `
+                  userAvailable.insertAdjacentHTML('beforeend', `
                     <div class='skill' draggable='true'>Can add</div>
                     <div class='skill' draggable='true'>Can delete</div>
                   `)
-  
-                  } else
-                    if (item.canAdd && !item.canDelete && !item.canEdit) {
-                      userActive.insertAdjacentHTML('beforeend', `
+
+                } else
+                  if (item.canAdd && !item.canDelete && !item.canEdit) {
+                    userActive.insertAdjacentHTML('beforeend', `
                 <div class='skill' draggable='true'>Can add</div>
+              `)
+                    userAvailable.insertAdjacentHTML('beforeend', `
+                <div class='skill' draggable='true'>Can edit</div>
+                <div class='skill' draggable='true'>Can delete</div>
+              `)
+
+                  } else
+                    if (!item.canAdd && item.canDelete && !item.canEdit) {
+                      userActive.insertAdjacentHTML('beforeend', `
+                <div class='skill' draggable='true'>Can delete</div>
               `)
                       userAvailable.insertAdjacentHTML('beforeend', `
-                <div class='skill' draggable='true'>Can edit</div>
-                <div class='skill' draggable='true'>Can delete</div>
+              <div class='skill' draggable='true'>Can add</div>
+              <div class='skill' draggable='true'>Can edit</div>
               `)
-  
-                    } else
-                      if (!item.canAdd && item.canDelete && !item.canEdit) {
-                        userActive.insertAdjacentHTML('beforeend', `
-                <div class='skill' draggable='true'>Can delete</div>
-              `)
-                        userAvailable.insertAdjacentHTML('beforeend', `
-                <div class='skill' draggable='true'>Can add</div>
-                <div class='skill' draggable='true'>Can edit</div>
-            `)
-                      }
-      }
-
-
+                    }
     })
     let noteInner = document.querySelectorAll('.admin-settings-permission')
 
@@ -186,39 +182,38 @@ export default class Users {
         e.target.classList.remove('hovered')
       })
       item.addEventListener('drop', (e) => {
-        e.preventDefault()
-        let dragged = document.querySelector('.hide')
-        let hovered = document.querySelector('.hovered')
-        e.target.appendChild(dragged)
-        dragged.classList.remove('hide')
+        e.preventDefault();
+        let dragged = document.querySelector('.hide');
+        let hovered = document.querySelector('.hovered');
+        e.target.appendChild(dragged);
+        dragged.classList.remove('hide');
         this.users.map((item) => {
-          if (e.target === userActive) {
-            if (dragged.textContent === 'Can add') {
-              item.canAdd = true;
-            } else if (dragged.textContent === 'Can edit') {
-              item.canEdit = true;
-            } else if (dragged.textContent === 'Can delete') {
-              item.canDelete = true;
-            }
-          } else if (e.target === userAvailable) {
-            if (dragged.textContent === 'Can add') {
-              item.canAdd = false;
-            } else if (dragged.textContent === 'Can edit') {
-              item.canEdit = false;
-            } else if (dragged.textContent === 'Can delete') {
-              item.canDelete = false;
+          if (item.id == id) {
+            if (e.target === userActive) {
+              if (dragged.textContent === 'Can add') {
+                item.canAdd = true;
+              } else if (dragged.textContent === 'Can edit') {
+                item.canEdit = true;
+              } else if (dragged.textContent === 'Can delete') {
+                item.canDelete = true;
+              }
+            } else if (e.target === userAvailable) {
+              if (dragged.textContent === 'Can add') {
+                item.canAdd = false;
+              } else if (dragged.textContent === 'Can edit') {
+                item.canEdit = false;
+              } else if (dragged.textContent === 'Can delete') {
+                item.canDelete = false;
+              }
             }
           }
         });
-        
+
         localStorage.setItem('users', JSON.stringify(this.users));
-        this.renderUser(this.users);
-        
+        this.renderUser(this.users); // Перенесен вызов renderUser внутрь метода drop
 
       })
     })
-    localStorage.setItem("users", JSON.stringify(this.users));
-    this.renderUser(this.users);
 
   }
 

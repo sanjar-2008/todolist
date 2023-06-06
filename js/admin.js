@@ -31,9 +31,10 @@ adminList.addEventListener('click', (event) => {
         let id = event.target.closest(".users").id;
         new Users().deleteTask(id);
     }
-    if (event.target.id == 'change') {
+    if (event.target.id === 'change') {
         let changeSetings = document.querySelector('.admin-settings')
         let id = event.target.closest("li").id;
+        new Users().DragAndDrop(id)
         let user = new Users().changeUser(id);
         let showPasswordButton = document.querySelector('#show-password_second');
         let generateButton = document.querySelector('#generate_second');
@@ -48,12 +49,12 @@ adminList.addEventListener('click', (event) => {
         });
         adminSetText.value = user[0].login;
         adminSetPass.value = user[0].password;
-        new Users().DragAndDrop(id)
     }
+
 })
+
 let exit = document.querySelector('.admin-settings__exit')
 let changeSetings = document.querySelector('.admin-settings')
-
 exit.addEventListener('click', ()=>{
 
     changeSetings.style.display = 'none'
@@ -67,7 +68,6 @@ document.querySelector('#generate-password').addEventListener('click', () => {
     let input = document.querySelector('#admin-password')
     new Users().generatePassword(input)
 })
-
 document.querySelector('.admin-settings__submit').addEventListener('click', () => {
     let makeAdmin = document.querySelector('#makeAdmin')
     let adminSetText = document.querySelector('.admin-settings__text')
@@ -78,4 +78,4 @@ document.querySelector('.admin-settings__submit').addEventListener('click', () =
 });
 
 new Users().renderUser(getData('users'));
-new Users().DragAndDrop()
+
