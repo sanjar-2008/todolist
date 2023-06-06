@@ -83,13 +83,13 @@ export default class Users {
     this.renderUser(this.users);
   }
 
-  DragAndDrop() {
+  DragAndDrop(id) {
+    console.log(id);
     let userActive = document.querySelector('.admin-settings-active')
     let userAvailable = document.querySelector('.admin-settings-available')
 
     this.users.map((item) => {
-      if(item.isAdmin === true){
-        
+      if(item.id == id){
         if (item.canAdd && item.canDelete && item.canEdit) {
           userActive.insertAdjacentHTML('beforeend', `
               <div class='skill' draggable='true'>Can add</div>
@@ -192,37 +192,28 @@ export default class Users {
         e.target.appendChild(dragged)
         dragged.classList.remove('hide')
         this.users.map((item) => {
-          if (e.target == userActive) {
-            if (dragged.textContent == 'canAdd') {
-              item.canAdd = true
-            }
-              else if (dragged.textContent === 'CanEdit') {
+          if (e.target === userActive) {
+            if (dragged.textContent === 'Can add') {
+              item.canAdd = true;
+            } else if (dragged.textContent === 'Can edit') {
               item.canEdit = true;
-             
-              localStorage.setItem('users', JSON.stringify(this.users))
-            }
-            else if (dragged.textContent === 'CanDelete') {
+            } else if (dragged.textContent === 'Can delete') {
               item.canDelete = true;
-              
-              localStorage.setItem('users', JSON.stringify(this.users))
             }
-          }
-          
-          else if (e.target.id === userAvailable) {
-            if (dragged.textContent === 'CanAdd') {
+          } else if (e.target === userAvailable) {
+            if (dragged.textContent === 'Can add') {
               item.canAdd = false;
-              localStorage.setItem('users', JSON.stringify(this.users))
-            }
-            else if (dragged.textContent === 'CanEdit') {
+            } else if (dragged.textContent === 'Can edit') {
               item.canEdit = false;
-              localStorage.setItem('users', JSON.stringify(this.users))
-            }
-            else if (dragged.textContent === 'CanDelete') {
+            } else if (dragged.textContent === 'Can delete') {
               item.canDelete = false;
-              localStorage.setItem('users', JSON.stringify(this.users))
             }
           }
-        })
+        });
+        
+        localStorage.setItem('users', JSON.stringify(this.users));
+        this.renderUser(this.users);
+        
 
       })
     })

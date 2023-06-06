@@ -11,7 +11,7 @@ let adminSetPass = document.querySelector('.admin-settings__password')
 
 add.addEventListener('click', () => {
     new Users().addUser(
-        
+
         {
             id: Math.floor(Math.random() * 1000000),
             login: login.value,
@@ -48,10 +48,16 @@ adminList.addEventListener('click', (event) => {
         });
         adminSetText.value = user[0].login;
         adminSetPass.value = user[0].password;
-        
+        new Users().DragAndDrop(id)
     }
 })
+let exit = document.querySelector('.admin-settings__exit')
+let changeSetings = document.querySelector('.admin-settings')
 
+exit.addEventListener('click', ()=>{
+
+    changeSetings.style.display = 'none'
+})
 document.querySelector('#show-password').addEventListener('click', (event) => {
     let input = document.querySelector('#admin-password')
     new Users().showPasswordSymbols(input)
