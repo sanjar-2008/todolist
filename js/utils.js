@@ -14,8 +14,9 @@ export class Utils {
     }
 }
 export function getData(key) {
-    return JSON.parse(localStorage.getItem(key) || '[]');
-}
+    const data = localStorage.getItem(key);
+    return data ? JSON.parse(data) : [];
+  }
 export function setData(key, data) {
     localStorage.setItem(key, JSON.stringify(data));
  }

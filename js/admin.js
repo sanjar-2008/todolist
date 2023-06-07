@@ -1,28 +1,28 @@
-import Users from './permision.js'
-import { getData } from './utils.js'
+import Users from './permision.js';
+import { getData } from './utils.js';
 
-let add = document.querySelector('.admin-add')
-let login = document.querySelector('#admin-login')
-let password = document.querySelector('#admin-password')
-let makeAdmin = document.querySelector('#makeAdmin')
-let adminSetText = document.querySelector('.admin-settings__text')
-let adminSetPass = document.querySelector('.admin-settings__password')
+const add = document.querySelector('.admin-add');
+const login = document.querySelector('#admin-login');
+const password = document.querySelector('#admin-password');
+const makeAdmin = document.querySelector('#makeAdmin');
+const adminSetText = document.querySelector('.admin-settings__text');
+const adminSetPass = document.querySelector('.admin-settings__password');
 
+const users = new Users();
+users.renderUser(getData('users'));
 
 add.addEventListener('click', () => {
-    new Users().addUser(
+    const newUser = {
+        id: Math.floor(Math.random() * 1000000),
+        login: login.value,
+        password: password.value,
+        isAdmin: makeAdmin.checked,
+        canEdit: false,
+        canDelete: false,
+        canAdd: false
+    };
 
-        {
-            id: Math.floor(Math.random() * 1000000),
-            login: login.value,
-            password: password.value,
-            isAdmin: makeAdmin.checked ? true : false,
-            canEdit: false,
-            canDelete: false,
-            canAdd: false
-        }
-
-    );
+    users.addUser(newUser);
 });
 
 let adminList = document.querySelector('.admin-list')
@@ -33,8 +33,12 @@ adminList.addEventListener('click', (event) => {
     }
     if (event.target.id === 'change') {
         let changeSetings = document.querySelector('.admin-settings')
-        let id = event.target.closest("li").id;
-        new Users().DragAndDrop(id)
+        let id = event.target.closest(".users").id;
+        let userActive = document.querySelector('#active-block');
+        let userAvailable = document.querySelector('#available-block');
+        userActive.innerHTML = ''
+        userAvailable.innerHTML = ''
+        new Users().DragAndDrop(id);
         let user = new Users().changeUser(id);
         let showPasswordButton = document.querySelector('#show-password_second');
         let generateButton = document.querySelector('#generate_second');
@@ -55,7 +59,7 @@ adminList.addEventListener('click', (event) => {
 
 let exit = document.querySelector('.admin-settings__exit')
 let changeSetings = document.querySelector('.admin-settings')
-exit.addEventListener('click', ()=>{
+exit.addEventListener('click', () => {
 
     changeSetings.style.display = 'none'
 })

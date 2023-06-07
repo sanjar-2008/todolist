@@ -2,13 +2,16 @@ import { getData } from "./utils.js";
 
 let adminList = document.querySelector('.admin-list')
 let makeAdmin = document.querySelector('#makeAdmin')
+
 export default class Users {
   constructor() {
-    this.users = getData("users")
+    this.users = getData("users");
   }
 
   renderUser(data) {
+    const adminList = document.querySelector('.admin-list');
     adminList.innerHTML = "";
+
     data.forEach((item) => {
       adminList.insertAdjacentHTML('afterbegin', `
         <li class="users" id="${item.id}">
@@ -18,18 +21,16 @@ export default class Users {
         </li>
       `);
     });
-
   }
 
   addUser(data) {
-    let user = JSON.parse(localStorage.getItem("users")) || [];
-    user.push(data);
-    localStorage.setItem("users", JSON.stringify(user));
-    this.renderUser(user);
+    const users = [...this.users, data];
+    localStorage.setItem("users", JSON.stringify(users));
+    this.renderUser(users);
   }
 
   deleteTask(id) {
-    let filteredUsers = getData("users").filter((task) => task.id != id);
+    const filteredUsers = this.users.filter((user) => user.id != id);
 
     localStorage.setItem("users", JSON.stringify(filteredUsers));
     this.renderUser(filteredUsers);
@@ -84,137 +85,151 @@ export default class Users {
   }
 
   DragAndDrop(id) {
-    console.log(id);
-    let userActive = document.querySelector('.admin-settings-active')
-    let userAvailable = document.querySelector('.admin-settings-available')
+    let userActive = document.querySelector('#active-block');
+    let userAvailable = document.querySelector('#available-block');
 
-    this.users.map((item) => {
-      if (item.canAdd && item.canDelete && item.canEdit) {
-        userActive.insertAdjacentHTML('beforeend', `
-              <div class='skill' draggable='true'>Can add</div>
-              <div class='skill' draggable='true'>Can delete</div>
-              <div class='skill' draggable='true'>Can edit</div>
-            `)
-
-      } else
-        if (!item.canAdd && !item.canDelete && !item.canEdit) {
-          userAvailable.insertAdjacentHTML('beforeend', `
-              <div class='skill' draggable='true'>Can add</div>
-              <div class='skill' draggable='true'>Can delete</div>
-              <div class='skill' draggable='true'>Can edit</div>
-            `)
-
-        } else
-          if (!item.canAdd && item.canDelete && item.canEdit) {
-            userActive.insertAdjacentHTML('beforeend', `
-              <div class='skill' draggable='true'>Can delete</div>
-              <div class='skill' draggable='true'>Can edit</div>
-           `)
+    this.users.forEach((item) => {
+      if (item.id == id) {
+        if (item.canAdd && item.canDelete && item.canEdit) {
+          userActive.insertAdjacentHTML('beforeend', `
+            <div class='skill' draggable='true'>Can add</div>
+            <div class='skill' draggable='true'>Can delete</div>
+            <div class='skill' draggable='true'>Can edit</div>
+          `);
+        } else {
+          if (!item.canAdd && !item.canDelete && !item.canEdit) {
             userAvailable.insertAdjacentHTML('beforeend', `
-            
               <div class='skill' draggable='true'>Can add</div>
-           `)
-
-          } else
-            if (item.canAdd && !item.canDelete && item.canEdit) {
+              <div class='skill' draggable='true'>Can delete</div>
+              <div class='skill' draggable='true'>Can edit</div>
+            `);
+          } else {
+            if (!item.canAdd && item.canDelete && item.canEdit) {
               userActive.insertAdjacentHTML('beforeend', `
-                <div class='skill' draggable='true'>Can add</div>
+                <div class='skill' draggable='true'>Can delete</div>
                 <div class='skill' draggable='true'>Can edit</div>
-              `)
+              `);
               userAvailable.insertAdjacentHTML('beforeend', `
-                <div class='skill' draggable='true'>Can delete</div>
-             `)
-
-            } else
-              if (item.canAdd && item.canDelete && !item.canEdit) {
-                userActive.insertAdjacentHTML('beforeend', `
                 <div class='skill' draggable='true'>Can add</div>
-                <div class='skill' draggable='true'>Can delete</div>
-              `)
+              `);
+            } else {
+              if (item.canAdd && !item.canDelete && item.canEdit) {
+                userActive.insertAdjacentHTML('beforeend', `
+                  <div class='skill' draggable='true'>Can add</div>
+                  <div class='skill' draggable='true'>Can edit</div>
+                `);
                 userAvailable.insertAdjacentHTML('beforeend', `
-                <div class='skill' draggable='true'>Can edit</div>
-              `)
-
-              } else
-                if (!item.canAdd && !item.canDelete && item.canEdit) {
+                  <div class='skill' draggable='true'>Can delete</div>
+                `);
+              } else {
+                if (item.canAdd && item.canDelete && !item.canEdit) {
                   userActive.insertAdjacentHTML('beforeend', `
-                    <div class='skill' draggable='true'>Can edit</div>
-                  `)
-                  userAvailable.insertAdjacentHTML('beforeend', `
                     <div class='skill' draggable='true'>Can add</div>
                     <div class='skill' draggable='true'>Can delete</div>
-                  `)
-
-                } else
-                  if (item.canAdd && !item.canDelete && !item.canEdit) {
+                  `);
+                  userAvailable.insertAdjacentHTML('beforeend', `
+                    <div class='skill' draggable='true'>Can edit</div>
+                  `);
+                } else {
+                  if (!item.canAdd && !item.canDelete && item.canEdit) {
                     userActive.insertAdjacentHTML('beforeend', `
-                <div class='skill' draggable='true'>Can add</div>
-              `)
+                      <div class='skill' draggable='true'>Can edit</div>
+                    `);
                     userAvailable.insertAdjacentHTML('beforeend', `
-                <div class='skill' draggable='true'>Can edit</div>
-                <div class='skill' draggable='true'>Can delete</div>
-              `)
-
-                  } else
-                    if (!item.canAdd && item.canDelete && !item.canEdit) {
+                      <div class='skill' draggable='true'>Can add</div>
+                      <div class='skill' draggable='true'>Can delete</div>
+                    `);
+                  } else {
+                    if (item.canAdd && !item.canDelete && !item.canEdit) {
                       userActive.insertAdjacentHTML('beforeend', `
-                <div class='skill' draggable='true'>Can delete</div>
-              `)
+                        <div class='skill' draggable='true'>Can add</div>
+                      `);
                       userAvailable.insertAdjacentHTML('beforeend', `
-              <div class='skill' draggable='true'>Can add</div>
-              <div class='skill' draggable='true'>Can edit</div>
-              `)
+                        <div class='skill' draggable='true'>Can edit</div>
+                        <div class='skill' draggable='true'>Can delete</div>
+                      `);
+                    } else {
+                      if (!item.canAdd && item.canDelete && !item.canEdit) {
+                        userActive.insertAdjacentHTML('beforeend', `
+                          <div class='skill' draggable='true'>Can delete</div>
+                        `);
+                        userAvailable.insertAdjacentHTML('beforeend', `
+                          <div class='skill' draggable='true'>Can add</div>
+                          <div class='skill' draggable='true'>Can edit</div>
+                        `);
+                      }
                     }
-    })
-    let noteInner = document.querySelectorAll('.admin-settings-permission')
-
-    noteInner.forEach((item) => {
-      item.addEventListener('dragstart', (e) => {
-        e.target.classList.add('hide')
-
-      })
-      item.addEventListener('dragover', (e) => {
-        e.preventDefault()
-        e.target.classList.add('hovered')
-      })
-      item.addEventListener('dragleave', (e) => {
-        e.preventDefault()
-        e.target.classList.remove('hovered')
-      })
-      item.addEventListener('drop', (e) => {
-        e.preventDefault();
-        let dragged = document.querySelector('.hide');
-        let hovered = document.querySelector('.hovered');
-        e.target.appendChild(dragged);
-        dragged.classList.remove('hide');
-        this.users.map((item) => {
-          if (item.id == id) {
-            if (e.target === userActive) {
-              if (dragged.textContent === 'Can add') {
-                item.canAdd = true;
-              } else if (dragged.textContent === 'Can edit') {
-                item.canEdit = true;
-              } else if (dragged.textContent === 'Can delete') {
-                item.canDelete = true;
-              }
-            } else if (e.target === userAvailable) {
-              if (dragged.textContent === 'Can add') {
-                item.canAdd = false;
-              } else if (dragged.textContent === 'Can edit') {
-                item.canEdit = false;
-              } else if (dragged.textContent === 'Can delete') {
-                item.canDelete = false;
+                  }
+                }
               }
             }
           }
+        }
+
+        const skills = document.querySelectorAll('.skill');
+        const outside = document.querySelectorAll('.admin-settings-active')
+        outside.forEach((skill) => {
+          skill.addEventListener('dragstart', (event) => {
+            event.target.classList.add('dragged');
+          });
+
+          skill.addEventListener('dragover', (event) => {
+            event.preventDefault();
+          });
+
+          skill.addEventListener('dragleave', (event) => {
+            event.preventDefault();
+          });
+
+          skill.addEventListener('drop', (event) => {
+            const droppedElement = document.querySelector('.dragged');
+            const targetContainer = event.target
+            console.log(targetContainer);
+            targetContainer.appendChild(droppedElement);
+            droppedElement.classList.remove('dragged')
+            this.users.map((item) => {
+              console.log(item);
+              if (item.id == id) {
+                console.log(id);
+                if (targetContainer.id === 'active-block') {
+                  if (droppedElement.textContent == 'Can add') {
+                    item.canAdd = true;
+                  }
+                  if (droppedElement.textContent == 'Can edit') {
+                    item.canEdit = true;
+                  }
+                  if (droppedElement.textContent == 'Can delete') {
+                    item.canDelete = true;
+                  }
+                }
+                if (droppedElement.id === 'available-block') {
+                  if (droppedElement.textContent == 'Can add') {
+                    item.canAdd = false;
+                  }
+                  if (droppedElement.textContent == 'Can edit') {
+                    item.canEdit = false;
+                  }
+                  if (droppedElement.textContent == 'Can delete') {
+                    item.canDelete = false;
+                  }
+
+                }
+              }
+
+            })
+
+
+            localStorage.setItem('users', JSON.stringify(this.users));
+
+          });
         });
-
         localStorage.setItem('users', JSON.stringify(this.users));
-        this.renderUser(this.users); // Перенесен вызов renderUser внутрь метода drop
 
-      })
-    })
+      }
+    });
+    localStorage.setItem('users', JSON.stringify(this.users));
 
   }
+
 
 }
