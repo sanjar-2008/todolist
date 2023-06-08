@@ -1,5 +1,5 @@
 import { admin } from "./loginOf.js";
-import { clearData, getData } from "./utils.js";
+import { getData } from "./utils.js";
 let login = document.querySelector('#login')
 let password = document.querySelector('#password')
 let submit = document.querySelector('#submit')

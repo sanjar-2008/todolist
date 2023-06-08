@@ -70,9 +70,6 @@ export default class Users {
           const makeAdminSecond = document.querySelector('#make-admin_second');
           makeAdminSecond.checked = true;
           console.log(item);
-          // item.canAdd = true
-          // item.canDelete = true
-          // item.canEdit = true
           admin.checked = true;
         }
       }

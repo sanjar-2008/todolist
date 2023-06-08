@@ -45,6 +45,7 @@ adminList.addEventListener('click', (event) => {
     adminSetText.value = user[0].login;
     adminSetPass.value = user[0].password;
     changeSettings.style.display = 'block';
+    
     localStorage.setItem("currentUser", id);
     showPasswordButton.addEventListener('click', () => {
       users.showPasswordSymbols(adminSetPass);
