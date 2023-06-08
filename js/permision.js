@@ -1,8 +1,5 @@
 import { getData } from "./utils.js";
 
-let adminList = document.querySelector('.admin-list')
-let makeAdmin = document.querySelector('#makeAdmin')
-
 export default class Users {
   constructor() {
     this.users = getData("users");
@@ -47,19 +44,20 @@ export default class Users {
   }
 
   generatePassword(input) {
-    let chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    let string_length = 8;
+    const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    const string_length = 8;
     let randomstring = '';
     for (let i = 0; i < string_length; i++) {
-      let rnum = Math.floor(Math.random() * chars.length);
+      const rnum = Math.floor(Math.random() * chars.length);
       randomstring += chars.substring(rnum, rnum + 1);
     }
-    input.value = randomstring
+    input.value = randomstring;
     localStorage.setItem("users", JSON.stringify(this.users));
     this.renderUser(this.users);
   }
+
   changeUser(id) {
-    let user = this.users.filter((user) => user.id == id);
+    const user = this.users.filter((user) => user.id == id);
     return user;
   }
 
@@ -69,15 +67,19 @@ export default class Users {
         item.password = password;
         item.login = login;
         if (admin.checked == true) {
-          let makeAdminSecond = document.querySelector('#make-admin_second');
+          const makeAdminSecond = document.querySelector('#make-admin_second');
           makeAdminSecond.checked = true;
+          console.log(item);
+          // item.canAdd = true
+          // item.canDelete = true
+          // item.canEdit = true
           admin.checked = true;
         }
       }
     });
 
-    let loginEdit = document.querySelector('.admin-settings__text');
-    let passwordEdit = document.querySelector('.admin-settings__password');
+    const loginEdit = document.querySelector('.admin-settings__text');
+    const passwordEdit = document.querySelector('.admin-settings__password');
     loginEdit.value = login;
     passwordEdit.value = password;
     localStorage.setItem("users", JSON.stringify(this.users));
@@ -85,8 +87,8 @@ export default class Users {
   }
 
   DragAndDrop(id) {
-    let userActive = document.querySelector('#active-block');
-    let userAvailable = document.querySelector('#available-block');
+    const userActive = document.querySelector('#active-block');
+    const userAvailable = document.querySelector('#available-block');
 
     this.users.forEach((item) => {
       if (item.id == id) {
@@ -166,8 +168,7 @@ export default class Users {
           }
         }
 
-        const skills = document.querySelectorAll('.skill');
-        const outside = document.querySelectorAll('.admin-settings-active')
+        const outside = document.querySelectorAll('.admin-settings-active');
         outside.forEach((skill) => {
           skill.addEventListener('dragstart', (event) => {
             event.target.classList.add('dragged');
@@ -183,10 +184,11 @@ export default class Users {
 
           skill.addEventListener('drop', (event) => {
             const droppedElement = document.querySelector('.dragged');
-            const targetContainer = event.target
+            const targetContainer = event.target;
             console.log(targetContainer);
             targetContainer.appendChild(droppedElement);
-            droppedElement.classList.remove('dragged')
+            droppedElement.classList.remove('dragged');
+          
             this.users.map((item) => {
               console.log(item);
               if (item.id == id) {
@@ -202,7 +204,7 @@ export default class Users {
                     item.canDelete = true;
                   }
                 }
-                if (droppedElement.id === 'available-block') {
+                if (targetContainer.id === 'available-block') {
                   if (droppedElement.textContent == 'Can add') {
                     item.canAdd = false;
                   }
@@ -212,24 +214,14 @@ export default class Users {
                   if (droppedElement.textContent == 'Can delete') {
                     item.canDelete = false;
                   }
-
                 }
               }
+            });
 
-            })
-
-
-            localStorage.setItem('users', JSON.stringify(this.users));
-
+            localStorage.setItem("users", JSON.stringify(this.users));
           });
         });
-        localStorage.setItem('users', JSON.stringify(this.users));
-
       }
     });
-    localStorage.setItem('users', JSON.stringify(this.users));
-
   }
-
-
 }

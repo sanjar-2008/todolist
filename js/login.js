@@ -1,9 +1,14 @@
 import { admin } from "./loginOf.js";
+import { clearData, getData } from "./utils.js";
 let login = document.querySelector('#login')
 let password = document.querySelector('#password')
 let submit = document.querySelector('#submit')
-
+let users = getData('users')
 let i = 0;
+for (let s = 0; s < users.length; s++) {
+    admin.push(users[s])
+}
+console.log(admin);
 
 submit.addEventListener('click', () => {
     if (login.value === "" || password.value === "") {
@@ -19,7 +24,7 @@ submit.addEventListener('click', () => {
                     canAdd: admin[j].canAdd,
                     canDelete: admin[j].canDelete,
                     canEdit: admin[j].canEdit,
-                    isAdmin:admin[j].isAdmin
+                    isAdmin: admin[j].isAdmin
                 }];
                 window.location.href = "../pages/notes.html";
                 found = true;

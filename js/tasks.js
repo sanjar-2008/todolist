@@ -16,6 +16,7 @@ export default class Tasks {
         text.value = '';
         important.checked = false;
         date.value = '';
+
         data.forEach((task) => {
             taskList.insertAdjacentHTML("afterbegin", `
                 <li class = "task" id="${task.id}">
@@ -48,17 +49,31 @@ export default class Tasks {
     }
 
     addTasks(data) {
-        let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-        tasks.push(data);
-        localStorage.setItem("tasks", JSON.stringify(tasks));
-        this.renderTasks(tasks);
+        this.admin.map((item) => {
+            console.log(item);
+            if (item.canAdd == false) {
+                alert("Вы не можете добавить")
+            } else if (item.canAdd == true) {
+                let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+                tasks.push(data);
+                localStorage.setItem("tasks", JSON.stringify(tasks));
+                this.renderTasks(tasks);
+            }
+        })
     }
 
     deleteTask(id) {
-        let filteredTasks = getData("tasks").filter((task) => task.id != id);
+        this.admin.map((item) => {
+            if (item.canDelete == false) {
+                alert("Вы не можете удалить")
+            }
+            else if (item.canDelete == true) {
+                let filteredTasks = getData("tasks").filter((task) => task.id != id);
 
-        setData("tasks", filteredTasks);
-        this.renderTasks(filteredTasks);
+                setData("tasks", filteredTasks);
+                this.renderTasks(filteredTasks);
+            }
+        })
     }
 
     updateStatus(id) {
@@ -74,18 +89,18 @@ export default class Tasks {
         this.renderTasks(this.tasks);
     }
 
-    updateStatusCotegory(id, status){
-        this.tasks.map((item)=>{
-            if(item.id == id){
-                if(status == 'process_second'){
+    updateStatusCotegory(id, status) {
+        this.tasks.map((item) => {
+            if (item.id == id) {
+                if (status == 'process_second') {
                     item.status = false;
                     item.important = false
                 }
-                else if(status == 'important_second'){
+                else if (status == 'important_second') {
                     item.status = false
                     item.important = true
                 }
-                else if(status == 'done_second'){
+                else if (status == 'done_second') {
                     item.status = true
                 }
             }
@@ -102,8 +117,16 @@ export default class Tasks {
     }
 
     editTask(id) {
-        let task = this.tasks.filter((task) => task.id == id);
-        return task;
+        this.admin.map((item)=>{
+            if(item.canEdit == false){
+                alert("Вы не можете изменить")
+            }
+            else if(item.canEdit == true){
+
+                let task = this.tasks.filter((task) => task.id == id);
+                return task;
+            }
+        })
     }
 
     saveTask(id, text, date) {
@@ -113,11 +136,11 @@ export default class Tasks {
                 task.date = date;
             }
         });
-        
+
         localStorage.setItem("tasks", JSON.stringify(this.tasks));
         this.renderTasks(this.tasks);
     }
-        
+
     DragAndDrop() {
         let noteProcess = document.querySelector('#process_second')
         let noteImportant = document.querySelector('#important_second')
@@ -166,27 +189,27 @@ export default class Tasks {
             }
         })
         let noteInner = document.querySelectorAll('.note-check__inner')
-        noteInner.forEach((item)=>{
-            
+        noteInner.forEach((item) => {
+
             item.addEventListener('dragstart', (e) => {
                 e.target.classList.add('hide')
 
             })
-            item.addEventListener('dragover', (e)=>{
+            item.addEventListener('dragover', (e) => {
                 e.preventDefault()
                 e.target.classList.add('hovered')
             })
-            item.addEventListener('dragleave', (e)=>{
+            item.addEventListener('dragleave', (e) => {
                 e.preventDefault()
                 e.target.classList.remove('hovered')
             })
-            item.addEventListener('drop', (e)=>{
+            item.addEventListener('drop', (e) => {
                 e.preventDefault()
                 let dragged = document.querySelector('.hide')
                 e.target.appendChild(dragged)
                 dragged.classList.remove('hide')
                 this.updateStatusCotegory(dragged.id, e.target.id)
-                
+
             })
         })
 

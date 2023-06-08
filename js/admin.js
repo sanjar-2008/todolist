@@ -2,7 +2,7 @@ import Users from './permision.js';
 import { getData } from './utils.js';
 
 const add = document.querySelector('.admin-add');
-const login = document.querySelector('#admin-login');
+let login = document.querySelector('#admin-login');
 const password = document.querySelector('#admin-password');
 const makeAdmin = document.querySelector('#makeAdmin');
 const adminSetText = document.querySelector('.admin-settings__text');
@@ -12,74 +12,77 @@ const users = new Users();
 users.renderUser(getData('users'));
 
 add.addEventListener('click', () => {
-    const newUser = {
-        id: Math.floor(Math.random() * 1000000),
-        login: login.value,
-        password: password.value,
-        isAdmin: makeAdmin.checked,
-        canEdit: false,
-        canDelete: false,
-        canAdd: false
-    };
-
-    users.addUser(newUser);
+  const newUser = {
+    id: Math.floor(Math.random() * 1000000),
+    login: login.value,
+    password: password.value,
+    isAdmin: makeAdmin.checked,
+    canEdit: false,
+    canDelete: false,
+    canAdd: false
+  };
+  location.href = location.href
+  users.addUser(newUser);
 });
 
-let adminList = document.querySelector('.admin-list')
+const adminList = document.querySelector('.admin-list');
 adminList.addEventListener('click', (event) => {
-    if (event.target.id == "delete") {
-        let id = event.target.closest(".users").id;
-        new Users().deleteTask(id);
-    }
-    if (event.target.id === 'change') {
-        let changeSetings = document.querySelector('.admin-settings')
-        let id = event.target.closest(".users").id;
-        let userActive = document.querySelector('#active-block');
-        let userAvailable = document.querySelector('#available-block');
-        userActive.innerHTML = ''
-        userAvailable.innerHTML = ''
-        new Users().DragAndDrop(id);
-        let user = new Users().changeUser(id);
-        let showPasswordButton = document.querySelector('#show-password_second');
-        let generateButton = document.querySelector('#generate_second');
-        let passwordInput = document.querySelector('.admin-settings__password');
-        changeSetings.style.display = 'block'
-        localStorage.setItem("currentUser", id);
-        showPasswordButton.addEventListener('click', () => {
-            new Users().showPasswordSymbols(passwordInput);
-        });
-        generateButton.addEventListener('click', () => {
-            new Users().generatePassword(passwordInput);
-        });
-        adminSetText.value = user[0].login;
-        adminSetPass.value = user[0].password;
-    }
+  if (event.target.id === 'delete') {
+    const id = event.target.closest(".users").id;
+    users.deleteTask(id);
+  }
+  if (event.target.id === 'change') {
+    const changeSettings = document.querySelector('.admin-settings');
+    const id = event.target.closest(".users").id;
+    const userActive = document.querySelector('#active-block');
+    const userAvailable = document.querySelector('#available-block');
+    userActive.innerHTML = '';
+    userAvailable.innerHTML = '';
+    users.DragAndDrop(id);
+    const user = users.changeUser(id);
+    const showPasswordButton = document.querySelector('#show-password_second');
+    const generateButton = document.querySelector('#generate_second');
+    adminSetText.value = user[0].login;
+    adminSetPass.value = user[0].password;
+    changeSettings.style.display = 'block';
+    localStorage.setItem("currentUser", id);
+    showPasswordButton.addEventListener('click', () => {
+      users.showPasswordSymbols(adminSetPass);
+    });
+    generateButton.addEventListener('click', () => {
+      users.generatePassword(adminSetPass);
+    });
+  }
+});
 
-})
-
-let exit = document.querySelector('.admin-settings__exit')
-let changeSetings = document.querySelector('.admin-settings')
+const exit = document.querySelector('.admin-settings__exit');
+const changeSettings = document.querySelector('.admin-settings');
 exit.addEventListener('click', () => {
+  changeSettings.style.display = 'none';
+});
 
-    changeSetings.style.display = 'none'
-})
 document.querySelector('#show-password').addEventListener('click', (event) => {
-    let input = document.querySelector('#admin-password')
-    new Users().showPasswordSymbols(input)
-})
+  const input = document.querySelector('#admin-password');
+  users.showPasswordSymbols(input);
+});
 
 document.querySelector('#generate-password').addEventListener('click', () => {
-    let input = document.querySelector('#admin-password')
-    new Users().generatePassword(input)
-})
-document.querySelector('.admin-settings__submit').addEventListener('click', () => {
-    let makeAdmin = document.querySelector('#makeAdmin')
-    let adminSetText = document.querySelector('.admin-settings__text')
-    let adminSetPass = document.querySelector('.admin-settings__password')
-    let changeSettings = document.querySelector('.admin-settings');
-    new Users().editUser(localStorage.getItem("currentUser"), makeAdmin, adminSetText.value, adminSetPass.value);
-    changeSettings.style.display = 'none';
+  const input = document.querySelector('#admin-password');
+  users.generatePassword(input);
 });
 
-new Users().renderUser(getData('users'));
+document.querySelector('.admin-settings__submit').addEventListener('click', () => {
+  const makeAdmin = document.querySelector('#makeAdmin');
+  const adminSetText = document.querySelector('.admin-settings__text');
+  const adminSetPass = document.querySelector('.admin-settings__password');
+  const changeSettings = document.querySelector('.admin-settings');
+  users.editUser(
+    localStorage.getItem("currentUser"),
+    makeAdmin.checked,
+    adminSetText.value,
+    adminSetPass.value
+  );
+  changeSettings.style.display = 'none';
+});
 
+users.renderUser(getData('users'));

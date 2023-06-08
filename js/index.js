@@ -9,7 +9,7 @@ let edit = document.querySelector('.edit');
 let search = document.querySelector('#searchText');
 let editText = document.querySelector('.edit-block_text');
 let editDate = document.querySelector('.edit-block_date');
-
+let admin = getData('admin')
 addButton.addEventListener("click", () => {
     new Tasks().addTasks(
         {
@@ -20,6 +20,7 @@ addButton.addEventListener("click", () => {
             status: false
         }
     )
+    
 })
 
 taskList.addEventListener("click", (event) => {
@@ -28,13 +29,20 @@ taskList.addEventListener("click", (event) => {
         new Tasks().deleteTask(id);
     }
     if (event.target.id == 'edit') {
-        edit.style.display = 'block';
-        let id = event.target.closest(".task").id;
-        let task = new Tasks().editTask(id);
-        localStorage.setItem("currentTask", id);
-        
-        editText.value = task[0].text;
-        editDate.value = task[0].date;
+        admin.map((item)=>{
+            console.log(item);
+            if(item.canEdit == true){
+                edit.style.display = 'block';
+                let id = event.target.closest(".task").id;
+                let task = new Tasks().editTask(id);
+                localStorage.setItem("currentTask", id);
+                
+                editText.value = task[0].text;
+                editDate.value = task[0].date;
+            }else{
+                alert("Вы не можете изменить")
+            }
+        })
     }
 
     if (event.target.closest('.textP')) {
@@ -55,7 +63,7 @@ isAdmin.map((item)=>{
     if(item.isAdmin == false){
         perm.style.display = 'none'
     }
-    else{
+    else if(item.isAdmin == true){
         perm.style.display = 'block'
     }
 })
